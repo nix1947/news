@@ -17,6 +17,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-	url(r'api/nagariknews', include('nagariknews.urls', namespace="nagariknews")),
+	url(r'apis/nagariknews', include('nagariknews.urls', namespace="nagariknews")),
     url(r'^admin/', admin.site.urls),
 ]
