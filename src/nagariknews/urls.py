@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^$', views.index, name="politics"),
 	url(r'politics/$', views.politics, name="politics"),
     url(r'economy/$', views.economy, name="economy"),
 	url(r'sport/$', views.sport, name="sport"),

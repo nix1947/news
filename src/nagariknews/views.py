@@ -27,6 +27,9 @@ def parser(url):
     return json.dumps(news)
 
 
+def index(request):
+    return render(request, 'nagariknews/base_nagariknews.html', {})
+
 def politics(request):
     news = parser('http://www.nagariknews.com/politics.feed')
     return HttpResponse(news, content_type='application/json')
