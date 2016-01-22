@@ -22,6 +22,8 @@ urlpatterns = [
 	url(r'friday/$', views.friday, name="friday"),
 	url(r'saturday/$', views.saturday, name="saturday"),
 	url(r'junkiri/$', views.junkiri, name="junkiri"),
+	
+
 ]
 
 

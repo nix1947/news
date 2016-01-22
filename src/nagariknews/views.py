@@ -2,6 +2,24 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import feedparser, json
 from bs4 import BeautifulSoup
+from utilities.url_open import url_open
+
+
+def news_detail(url):
+    news_object = url_open(url)
+    #hold detail news
+    content = ""
+    #first part of news
+    news_intro = news_object.findAll('div', {'class':'itemIntroText'})
+    for news_intro_text in news_intro:
+        content += news_intro_text.get_text()
+    #remaining parts of news
+    news_body = news_object.findAll('div', {'class':'itemFullText'})
+    for divs in news_body:
+        content += " " + divs.get_text()
+
+    return content
+
 
 def parser(url):
     feed = feedparser.parse(url)
@@ -23,14 +41,20 @@ def parser(url):
         summaries = soup.findAll('div', {'class', 'K2FeedIntroText'})
         for text in summaries:
             data['summary'] = text.get_text()
-
+        #news detail
+        data['detail'] = news_detail(item.link)
+        #push all news in list
         news.append(data)
 
-    #creating a json data 
+    #creating and returning a json data 
     return json.dumps(news)
 
 
+
+
 def index(request):
+    """For home page only
+    """
     return render(request, 'nagariknews/base_nagariknews.html', {})
 
 def politics(request):
