@@ -20,7 +20,10 @@ def parser(url):
         data['thumbnail'] = item.description[start:end+3] or None
         #extracting summary
         soup = BeautifulSoup(item.description, 'html5lib')
-        data['summary'] = soup.content
+        summaries = soup.findAll('div', {'class', 'K2FeedIntroText'})
+        for text in summaries:
+            data['summary'] = text.get_text()
+
         news.append(data)
 
     #creating a json data 
